@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { createTRPCRouter, publicProcedure } from ".."
+import { createTRPCRouter, publicProcedure } from "../trpc"
 
 export const todoRouter = createTRPCRouter({
   all: publicProcedure.query(async ({ ctx }) => {
