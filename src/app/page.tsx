@@ -1,3 +1,4 @@
+import { AddTodo } from "@components/shared/todos/add-todo"
 import { ToggleTheme } from "@components/shared/toggle-theme"
 import { api } from "@server/trpc/server"
 import { type Metadata } from "next"
@@ -16,6 +17,7 @@ export default async function HomePage() {
       <div className="flex flex-col items-center justify-center gap-4">
         <h1 className={"text-center text-lg font-medium"}>{msg}</h1>
         <ToggleTheme />
+        <AddTodo />
         <pre>{JSON.stringify(res, null, 2)}</pre>
       </div>
     </div>

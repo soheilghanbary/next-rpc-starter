@@ -56,3 +56,10 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Todo {
+  id        String   @id @default(cuid())
+  text      String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

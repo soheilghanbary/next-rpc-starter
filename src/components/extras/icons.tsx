@@ -9,4 +9,5 @@ export const Icons = {
   trash: Icon.Trash,
   edit: Icon.Edit,
   check: Icon.BadgeCheck,
+  plus: Icon.BadgePlusIcon,
 }
