@@ -1,16 +1,12 @@
-import { getUserSession } from "@server/auth"
-import { SignInButton, SignOutButton } from "./auth-button"
 import { ToggleTheme } from "./toggle-theme"
 
-export const Header = async () => {
-  const session = await getUserSession()
+export const Header = () => {
   return (
-    <header className="flex items-center justify-between gap-4 border-b p-2">
-      <h3 className="font-bold text-foreground">RPC Todo</h3>
-      <div className="flex items-center gap-4">
+    <header className="border-b bg-background p-2">
+      <nav className="container mx-auto flex items-center justify-between gap-4 p-0">
+        <h3 className="font-bold text-foreground">RPC Todo</h3>
         <ToggleTheme />
-        {session ? <SignOutButton /> : <SignInButton />}
-      </div>
+      </nav>
     </header>
   )
 }

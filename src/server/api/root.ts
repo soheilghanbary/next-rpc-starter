@@ -1,4 +1,4 @@
-import { todoRouter } from "./routes/todo"
+import { todoRouter } from "../routes/todo.route"
 import { createCallerFactory, createTRPCRouter } from "./trpc"
 
 export const appRouter = createTRPCRouter({

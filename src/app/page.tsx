@@ -1,5 +1,6 @@
 import { AddTodo } from "@/app/add-todo"
-import { ToggleTheme } from "@components/shared/toggle-theme"
+import { Header } from "@components/shared/header"
+import { TodoList } from "@components/shared/todo/todo-list"
 import { api } from "@server/api/server"
 import { type Metadata } from "next"
 
@@ -13,13 +14,12 @@ const msg = "I'm Ready to Use"
 export default async function HomePage() {
   const res = await api.todo.all()
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className={"text-center text-lg font-medium"}>{msg}</h1>
-        <ToggleTheme />
+    <>
+      <Header />
+      <div className="container mx-auto max-w-sm space-y-4 p-4">
         <AddTodo />
-        <pre>{JSON.stringify(res, null, 2)}</pre>
+        <TodoList />
       </div>
-    </div>
+    </>
   )
 }

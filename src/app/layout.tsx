@@ -1,13 +1,12 @@
 import "@styles/globals.css"
 
-import { QueryProvider } from "@components/providers/query-provider"
 import { ThemeProvider } from "@components/providers/theme-provider"
+import { TRPCReactProvider } from "@components/providers/trpc-provider"
 import { siteConfig } from "@config/site"
 import { Toaster } from "@ui/sonner"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { type PropsWithChildren } from "react"
-import { TRPCReactProvider } from "@components/providers/trpc-provider"
 
 const font = Inter({
   weight: ["300", "400", "500", "600", "700", "800", "900"],

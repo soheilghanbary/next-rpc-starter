@@ -3,10 +3,10 @@ import { Icons } from "@components/extras/icons"
 import { TextField } from "@components/extras/text-field"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@server/api/client"
+import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@ui/button"
-import { useRouter } from "next/navigation"
-import router from "next/router"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
 
 const schema = z.object({
@@ -16,22 +16,28 @@ const schema = z.object({
 type Schema = z.infer<typeof schema>
 
 export const AddTodo = () => {
+  const queryClient = useQueryClient()
   const { register, handleSubmit, reset } = useForm<Schema>({
     resolver: zodResolver(schema),
   })
-  const router = useRouter()
-  const { mutate, isPending } = api.todo.create.useMutation()
-  const onSubmit = async (data: Schema) => {
-    await mutate(data, {
-      onSuccess(res) {
-        router.refresh()
-        reset()
-      },
-    })
-  }
+  const addMutate = api.todo.create.useMutation({
+    onSettled(res) {
+      const getTodosKey = [
+        ["todo", "all"],
+        {
+          type: "query",
+        },
+      ]
+      queryClient.setQueryData(getTodosKey, (oldTodos: any[]) => {
+        return [res, ...oldTodos]
+      })
+      reset()
+      toast.success("Todo Was Added!")
+    },
+  })
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => addMutate.mutate(data))}
       className="flex items-end gap-2 rounded-md border bg-background p-4 shadow-sm"
     >
       <TextField
@@ -40,7 +46,7 @@ export const AddTodo = () => {
         className="grow"
         {...register("text")}
       />
-      <Button disabled={isPending}>
+      <Button disabled={addMutate.isPending}>
         Save
         <Icons.plus className="ml-2 size-4" />
       </Button>
