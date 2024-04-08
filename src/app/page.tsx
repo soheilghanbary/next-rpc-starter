@@ -1,6 +1,6 @@
-import { AddTodo } from "@components/shared/todos/add-todo"
+import { AddTodo } from "@/app/add-todo"
 import { ToggleTheme } from "@components/shared/toggle-theme"
-import { api } from "@server/trpc/server"
+import { api } from "@server/api/server"
 import { type Metadata } from "next"
 
 export const metadata: Metadata = {

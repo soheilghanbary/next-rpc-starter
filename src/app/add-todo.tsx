@@ -2,8 +2,10 @@
 import { Icons } from "@components/extras/icons"
 import { TextField } from "@components/extras/text-field"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { api } from "@server/trpc/client"
+import { api } from "@server/api/client"
 import { Button } from "@ui/button"
+import { useRouter } from "next/navigation"
+import router from "next/router"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -17,11 +19,12 @@ export const AddTodo = () => {
   const { register, handleSubmit, reset } = useForm<Schema>({
     resolver: zodResolver(schema),
   })
+  const router = useRouter()
   const { mutate, isPending } = api.todo.create.useMutation()
   const onSubmit = async (data: Schema) => {
     await mutate(data, {
       onSuccess(res) {
-        console.log(res)
+        router.refresh()
         reset()
       },
     })

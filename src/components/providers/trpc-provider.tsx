@@ -1,6 +1,6 @@
 "use client"
 
-import { api } from "@server/trpc/client"
+import { api } from "@server/api/client"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client"
 import { useState } from "react"
